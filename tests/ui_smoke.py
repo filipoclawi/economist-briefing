@@ -69,6 +69,10 @@ try:
                     assert "video" in (card.get_attribute("class") or "") and card.get_attribute("data-mode") == "watch"
                     assert "min watch" in text.lower()
             text = page.locator("body").inner_text()
+            assertion_path = "editions/2026-08-07/" if path == "" else path
+            if assertion_path in expected_additions:
+                titles = set(page.locator(".item-card h3").all_inner_texts())
+                assert expected_additions[assertion_path].issubset(titles)
             assert "🔴" not in text
             assert not re.search(r"[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}", text)
             assert not any(secret in text for secret in ["/home/", "messageId", "threadId", "Label_", "icloud.com"])
