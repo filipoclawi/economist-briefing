@@ -16,14 +16,26 @@ latest = manifest["latest"]
 expected = {"": next(e["count"] for e in editions if e["end"] == latest)}
 expected.update({e["href"]: e["count"] for e in editions})
 expected_additions = {
-    "editions/2026-07-31/": {
-        "The US in Brief: The Senate’s busy week",
-        "The US in Brief: Elon Musk eyes the midterms",
+    "editions/2026-08-14/": {
+        "How dementia is being defeated",
+        "The US in Brief: Trump appoints a new top legal adviser",
+        "Inside Tech: The man putting self-driving cars on Britain’s streets",
+        "The US in Brief: Trump attacks childhood vaccination",
+        "The US in Brief: An upset in Wisconsin",
+        "The Insider: Is it time to talk to the Taliban?",
+        "The US in Brief: Trump renews attack on mail-in ballots",
+        "The Taliban are vile. Democracies must still engage with them",
+        "The US in Brief: Doing the aircraft-carrier shuffle",
     },
-    "editions/2026-08-07/": {
-        "The US in Brief: The left’s hot streak",
-        "Why AI is a risk to Communist China",
-        "The US in Brief: Trump attacks birthright citizenship, again",
+    "editions/2026-08-21/": {
+        "The US in Brief: Todd Blanche declares non-independence",
+        "Inside Economics: Could Japan bring down the world economy?",
+        "The US in Brief: “Inane, haphazard” and helping Russia",
+        "The US in Brief: Some primary surprises",
+        "The Insider: Our interview with Yuval Noah Harari",
+        "The US in Brief: Dismay at $40trn in debt",
+        "Could AIs become conscious?",
+        "The US in Brief: The USS Abraham Lincoln relieved",
     },
 }
 server = subprocess.Popen(
@@ -69,20 +81,23 @@ try:
                     assert "video" in (card.get_attribute("class") or "") and card.get_attribute("data-mode") == "watch"
                     assert "min watch" in text.lower()
             text = page.locator("body").inner_text()
-            assertion_path = "editions/2026-08-07/" if path == "" else path
+            assertion_path = f"editions/{latest}/" if path == "" else path
             if assertion_path in expected_additions:
                 titles = set(page.locator(".item-card h3").all_inner_texts())
-                assert expected_additions[assertion_path].issubset(titles)
+                assert expected_additions[assertion_path] == titles
+                assert "Sign up to your personalised newsletter" not in titles
+                assert "Continue watching your Insider episode" not in titles
             assert "🔴" not in text
             assert not re.search(r"[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}", text)
-            assert not any(secret in text for secret in ["/home/", "messageId", "threadId", "Label_", "icloud.com"])
+            private_markers = ["/" + "home/", "message" + "Id", "thread" + "Id", "Label" + "_", "icloud" + ".com"]
+            assert not any(secret in text for secret in private_markers)
             assert page.evaluate("document.documentElement.scrollWidth <= document.documentElement.clientWidth")
             if path.startswith("editions/"):
                 total_archive_cards += count
                 total_archive_videos += videos.count()
             if path == "":
                 page.screenshot(path=str(ROOT / "test-results-desktop.png"), full_page=True)
-            if path == "editions/2026-07-31/":
+            if path == "editions/2026-08-14/":
                 page.screenshot(path=str(ROOT / "test-results-video-edition.png"), full_page=True)
             page.close()
 
