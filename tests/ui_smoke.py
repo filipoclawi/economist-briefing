@@ -38,6 +38,11 @@ expected_additions = {
         "The US in Brief: The USS Abraham Lincoln relieved",
     },
 }
+# Preserve exact source-to-card coverage from the September recovery.
+expected_additions.update({
+    path: set(titles)
+    for path, titles in json.loads((ROOT / "tests/recovery_titles.json").read_text()).items()
+})
 server = subprocess.Popen(
     [sys.executable, "-m", "http.server", "8767"],
     cwd=ROOT,
