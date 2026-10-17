@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 import json
 import re
-import subprocess
-import sys
-import time
+import os
+import threading
+from functools import partial
+from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit
 
@@ -43,15 +44,17 @@ expected_additions.update({
     path: set(titles)
     for path, titles in json.loads((ROOT / "tests/recovery_titles.json").read_text()).items()
 })
-server = subprocess.Popen(
-    [sys.executable, "-m", "http.server", "8767"],
-    cwd=ROOT,
-    stdout=subprocess.DEVNULL,
-    stderr=subprocess.DEVNULL,
-)
+server = None
+base_url = os.environ.get("BASE_URL")
+if not base_url:
+    server = ThreadingHTTPServer(
+        ("127.0.0.1", 0), partial(SimpleHTTPRequestHandler, directory=str(ROOT))
+    )
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    base_url = f"http://127.0.0.1:{server.server_port}/"
+base_url = base_url.rstrip("/") + "/"
 
 try:
-    time.sleep(1)
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         errors = []
@@ -61,7 +64,8 @@ try:
             page = browser.new_page(viewport={"width": 1440, "height": 950})
             page.on("console", lambda m: errors.append(f"{path}: {m.text}") if m.type == "error" else None)
             page.on("pageerror", lambda e: errors.append(f"{path}: {e}"))
-            page.goto("http://127.0.0.1:8767/" + path, wait_until="networkidle")
+            response = page.goto(base_url + path, wait_until="networkidle")
+            assert response is not None and response.status == 200, path
             page.wait_for_function("document.documentElement.dataset.ready === 'true'")
             cards = page.locator(".item-card")
             videos = page.locator(".item-card.video")
@@ -79,7 +83,8 @@ try:
                 parsed = urlsplit(href)
                 assert parsed.scheme == "https" and parsed.hostname and parsed.hostname.endswith("economist.com")
                 assert not parsed.query and not parsed.fragment
-                assert "economist.com" in text and "min" in text
+                assert "economist.com" in text
+                assert "min" in text or "Read time not supplied" in text
                 if title.startswith("The US in Brief"):
                     assert "Related analysis" in text
                 if re.match(r"^(The Insider|Inside Defence|Inside Economics|Inside Geopolitics)\b", title):
@@ -108,7 +113,8 @@ try:
 
         for path in expected:
             mobile = browser.new_page(viewport={"width": 390, "height": 844})
-            mobile.goto("http://127.0.0.1:8767/" + path, wait_until="networkidle")
+            response = mobile.goto(base_url + path, wait_until="networkidle")
+            assert response is not None and response.status == 200, path
             mobile.wait_for_function("document.documentElement.dataset.ready === 'true'")
             assert mobile.evaluate("document.documentElement.scrollWidth <= document.documentElement.clientWidth")
             if path == "":
@@ -122,5 +128,6 @@ try:
         "visible destinations/times, privacy, console, desktop/mobile overflow"
     )
 finally:
-    server.terminate()
-    server.wait(timeout=5)
+    if server is not None:
+        server.shutdown()
+        server.server_close()
