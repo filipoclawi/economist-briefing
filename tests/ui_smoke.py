@@ -84,12 +84,21 @@ try:
                 assert parsed.scheme == "https" and parsed.hostname and parsed.hostname.endswith("economist.com")
                 assert not parsed.query and not parsed.fragment
                 assert "economist.com" in text
-                assert "min" in text or "Read time not supplied" in text
+                assert "min" in text or "Read time not supplied" in text or "Watch time not supplied" in text
                 if title.startswith("The US in Brief"):
                     assert "Related analysis" in text
                 if re.match(r"^(The Insider|Inside Defence|Inside Economics|Inside Geopolitics)\b", title):
                     assert "video" in (card.get_attribute("class") or "") and card.get_attribute("data-mode") == "watch"
-                    assert "min watch" in text.lower()
+                    assert "min watch" in text.lower() or "Watch time not supplied" in text
+                    assert "Watch briefing" in text
+            for button in page.locator('[data-filter]').all():
+                filter_type = button.get_attribute('data-filter')
+                button.click()
+                wanted = count if filter_type == 'all' else page.locator(f'.item-card[data-type="{filter_type}"]').count()
+                assert page.locator('.item-card:visible').count() == wanted
+                assert page.locator('#result-count').inner_text() == f'{wanted} item' + ('' if wanted == 1 else 's')
+                assert button.get_attribute('aria-pressed') == 'true'
+            page.locator('[data-filter="all"]').click()
             text = page.locator("body").inner_text()
             assertion_path = f"editions/{latest}/" if path == "" else path
             if assertion_path in expected_additions:

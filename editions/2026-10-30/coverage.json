@@ -1,0 +1,37 @@
+{
+  "editionEnd": "2026-10-30",
+  "status": "week-to-date",
+  "sourceBasis": "Full newsletter email; article pages not independently reviewed.",
+  "reviewedSources": 2,
+  "editorialSources": 2,
+  "nonEditorialSources": 0,
+  "dataThrough": "2026-10-26T12:08:07+01:00",
+  "checkedAt": "2026-10-26T13:10:22+01:00",
+  "mergePolicy": "Union existing cards with new sources by title and canonical destination; never replace from Inbox alone.",
+  "cards": [
+    {
+      "title": "The US in Brief: Barack Obama v Donald Trump",
+      "preview": "Obama and Trump take opposing messages to midterm rallies, with Obama challenging divisive attacks on Democratic candidates in Ohio and Michigan. The issue also examines fabricated polling and tight races in Texas.",
+      "receivedAt": "2026-10-26T12:08:07+01:00",
+      "date": "26 Oct 2026",
+      "canonical": "https://www.economist.com/united-states/2026/10/22/the-curious-predictable-case-of-the-fake-poll",
+      "mode": "read",
+      "type": "us",
+      "duration": "Read time not supplied",
+      "durationBasis": "not supplied in newsletter",
+      "cta": "Related analysis"
+    },
+    {
+      "title": "Sexually transmitted infections are surging in Europe",
+      "preview": "European health authorities report rising syphilis and gonorrhoea despite incomplete testing data. The newsletter weighs possible causes and argues for more testing and less stigma to help curb transmission.",
+      "receivedAt": "2026-10-24T12:57:18+02:00",
+      "date": "24 Oct 2026",
+      "canonical": "https://www.economist.com/europe/2026/08/09/sexually-transmitted-infections-are-surging-in-europe",
+      "mode": "read",
+      "type": "weekly",
+      "duration": "Read time not supplied",
+      "durationBasis": "not supplied in newsletter",
+      "cta": "Read analysis"
+    }
+  ]
+}
