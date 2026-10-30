@@ -6,7 +6,7 @@
   "editorialSources": 7,
   "nonEditorialSources": 1,
   "dataThrough": "2026-10-23T13:07:38+02:00",
-  "checkedAt": "2026-10-26T13:10:22+01:00",
+  "checkedAt": "2026-10-30T22:58:29+01:00",
   "mergePolicy": "Union existing cards with new sources by title and canonical destination; never replace from Inbox alone.",
   "cards": [
     {
@@ -17,8 +17,8 @@
       "canonical": "https://www.economist.com/graphic-detail/2026/10/21/polls-suggest-a-sweeping-democratic-victory-history-suggests-caution",
       "mode": "read",
       "type": "us",
-      "duration": "Read time not supplied",
-      "durationBasis": "not supplied in newsletter",
+      "duration": "~8 min read (est.)",
+      "durationBasis": "Conservative planning allowance; actual duration not independently verified",
       "cta": "Related analysis"
     },
     {
@@ -29,8 +29,8 @@
       "canonical": "https://www.economist.com/leaders/2026/10/22/the-agony-of-liberal-europe",
       "mode": "read",
       "type": "weekly",
-      "duration": "Read time not supplied",
-      "durationBasis": "not supplied in newsletter",
+      "duration": "~8 min read (est.)",
+      "durationBasis": "Conservative planning allowance; actual duration not independently verified",
       "cta": "Read analysis"
     },
     {
@@ -41,8 +41,8 @@
       "canonical": "https://www.economist.com/united-states/2026/10/22/the-curious-predictable-case-of-the-fake-poll",
       "mode": "read",
       "type": "us",
-      "duration": "Read time not supplied",
-      "durationBasis": "not supplied in newsletter",
+      "duration": "~8 min read (est.)",
+      "durationBasis": "Conservative planning allowance; actual duration not independently verified",
       "cta": "Related analysis"
     },
     {
@@ -53,8 +53,8 @@
       "canonical": "https://www.economist.com/united-states/2026/10/22/the-midterms-fundraising-figures-tell-a-surprising-story",
       "mode": "read",
       "type": "us",
-      "duration": "Read time not supplied",
-      "durationBasis": "not supplied in newsletter",
+      "duration": "~8 min read (est.)",
+      "durationBasis": "Conservative planning allowance; actual duration not independently verified",
       "cta": "Related analysis"
     },
     {
@@ -65,8 +65,8 @@
       "canonical": "https://www.economist.com/united-states/2026/10/18/republicans-identity-crisis-in-texas",
       "mode": "read",
       "type": "us",
-      "duration": "Read time not supplied",
-      "durationBasis": "not supplied in newsletter",
+      "duration": "~8 min read (est.)",
+      "durationBasis": "Conservative planning allowance; actual duration not independently verified",
       "cta": "Related analysis"
     },
     {
@@ -77,8 +77,8 @@
       "canonical": "https://www.economist.com/insider/inside-economics/will-france-blow-up-the-euro-zone",
       "mode": "watch",
       "type": "insider",
-      "duration": "Watch time not supplied",
-      "durationBasis": "not supplied for this episode",
+      "duration": "~45 min watch (est.)",
+      "durationBasis": "Conservative planning allowance; actual duration not independently verified",
       "cta": "Watch briefing"
     },
     {
@@ -89,8 +89,8 @@
       "canonical": "https://www.economist.com/united-states/2026/10/15/donald-trump-turns-to-vladimir-putin-for-relief-at-the-pump",
       "mode": "read",
       "type": "us",
-      "duration": "Read time not supplied",
-      "durationBasis": "not supplied in newsletter",
+      "duration": "~8 min read (est.)",
+      "durationBasis": "Conservative planning allowance; actual duration not independently verified",
       "cta": "Related analysis"
     }
   ]

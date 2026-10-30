@@ -2,6 +2,7 @@
 import json
 import re
 import os
+import time
 import threading
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -53,6 +54,7 @@ if not base_url:
     threading.Thread(target=server.serve_forever, daemon=True).start()
     base_url = f"http://127.0.0.1:{server.server_port}/"
 base_url = base_url.rstrip("/") + "/"
+cache_bust = f"?verify={int(time.time())}"
 
 try:
     with sync_playwright() as p:
@@ -64,7 +66,7 @@ try:
             page = browser.new_page(viewport={"width": 1440, "height": 950})
             page.on("console", lambda m: errors.append(f"{path}: {m.text}") if m.type == "error" else None)
             page.on("pageerror", lambda e: errors.append(f"{path}: {e}"))
-            response = page.goto(base_url + path, wait_until="networkidle")
+            response = page.goto(base_url + path + cache_bust, wait_until="networkidle")
             assert response is not None and response.status == 200, path
             page.wait_for_function("document.documentElement.dataset.ready === 'true'")
             cards = page.locator(".item-card")
@@ -122,7 +124,9 @@ try:
 
         for path in expected:
             mobile = browser.new_page(viewport={"width": 390, "height": 844})
-            response = mobile.goto(base_url + path, wait_until="networkidle")
+            mobile.on("console", lambda m: errors.append(f"{path}: {m.text}") if m.type == "error" else None)
+            mobile.on("pageerror", lambda e: errors.append(f"{path}: {e}"))
+            response = mobile.goto(base_url + path + cache_bust, wait_until="networkidle")
             assert response is not None and response.status == 200, path
             mobile.wait_for_function("document.documentElement.dataset.ready === 'true'")
             assert mobile.evaluate("document.documentElement.scrollWidth <= document.documentElement.clientWidth")
