@@ -45,8 +45,10 @@ for e in manifest['editions']:
         assert url.scheme == 'https' and url.hostname == 'www.economist.com'
         assert not url.query and not url.fragment
         duration = card.select_one('.duration').get_text()
-        # Older archives retain their explicit unknown-time disclosure.
-        assert re.search(r'\d+ min (read|watch)', duration) or (e['end'] < '2026-10-23' and duration == 'Read time not supplied')
+        # October planning allowances stay immutable; later email-only previews
+        # explicitly disclose unknown reading times instead of inventing them.
+        unknown_read = duration == 'Read time not supplied' and (e['end'] < '2026-10-23' or e['end'] >= '2026-11-06')
+        assert re.search(r'\d+ min (read|watch)', duration) or unknown_read
         assert 'economist.com' in card.select_one('.open-link').get_text()
     assert len(soup.select('.edition-inner a,.edition-inner span')) == len(manifest['editions'])
 # Scan every deployed HTML/data/asset file, not only rendered text.

@@ -1,0 +1,29 @@
+{
+  "editionEnd": "2026-11-13",
+  "status": "week-to-date",
+  "sourceBasis": "Full newsletter email; linked articles and episodes not independently reviewed.",
+  "reviewedSources": 1,
+  "editorialSources": 1,
+  "nonEditorialSources": 0,
+  "duplicatePromotions": 0,
+  "attentionSources": 0,
+  "dataThrough": "2026-11-07T12:54:35+01:00",
+  "checkedAt": "2026-11-08T10:04:23+01:00",
+  "mergePolicy": "Union existing cards with new sources by title and canonical destination; never replace from Inbox alone.",
+  "zeroCardReview": "No zero-card sources in this edition.",
+  "cards": [
+    {
+      "id": "n20261113-nannying-for-the-ultra-rich-is-increasingly-lucrative",
+      "title": "Nannying for the ultra-rich is increasingly lucrative",
+      "preview": "The Saturday newsletter describes the growing market for rota-nannies serving ultra-wealthy families. Alternating teams offer round-the-clock care and high pay, but the arrangement also raises questions about demanding work and avoiding burnout.",
+      "receivedAt": "2026-11-07T12:54:35+01:00",
+      "date": "07 Nov 2026",
+      "canonical": "https://www.economist.com/business/2026/09/16/nannying-for-the-ultra-rich-is-increasingly-demanding-and-lucrative",
+      "mode": "read",
+      "type": "weekly",
+      "duration": "Read time not supplied",
+      "durationBasis": "No article reading time supplied in the source email; no estimate inferred from teaser length",
+      "cta": "Read analysis"
+    }
+  ]
+}
