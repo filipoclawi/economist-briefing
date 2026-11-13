@@ -2,16 +2,16 @@
   "latest": "2026-11-13",
   "editions": [
     {
-      "status": "week-to-date",
-      "reviewedSources": 1,
-      "editorialSources": 1,
+      "status": "completed",
+      "reviewedSources": 9,
+      "editorialSources": 9,
       "nonEditorialSources": 0,
-      "dataThrough": "2026-11-07T12:54:35+01:00",
-      "checkedAt": "2026-11-08T10:04:23+01:00",
+      "dataThrough": "2026-11-13T12:48:55+01:00",
+      "checkedAt": "2026-11-13T22:58:36+01:00",
       "start": "2026-11-07",
       "end": "2026-11-13",
       "href": "editions/2026-11-13/",
-      "count": 1,
+      "count": 9,
       "coverage": "editions/2026-11-13/coverage.json"
     },
     {
